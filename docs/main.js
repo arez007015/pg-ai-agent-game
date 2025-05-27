@@ -1,1 +1,1 @@
-import './Pg Ai Game Phaser';
+import './game.js';
