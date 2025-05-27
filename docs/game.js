@@ -1,12 +1,10 @@
-
-// PG AI Agent – Persian-Isometric Strategy Game (Phaser.js)
-// Base Game Setup with Persian Gulf and Ancient Iran theme, using international naming
+import Phaser from "https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.esm.js";
 
 const config = {
   type: Phaser.AUTO,
   width: 960,
   height: 640,
-  backgroundColor: "#003049", // Persian Gulf dark blue
+  backgroundColor: "#003049",
   parent: "game-container",
   physics: {
     default: "arcade",
@@ -25,12 +23,7 @@ class PreloadScene extends Phaser.Scene {
 
   preload() {
     this.load.image("tiles", "assets/tilesets/iranian_art_tileset.png");
-    this.load.tilemapTiledJSON("map", "assets/sprites/iran_isometric_map_embedded.tmj");
-    this.load.spritesheet("agent", "assets/sprites/pg_agent_goldturq.png", {
-      frameWidth: 64,
-      frameHeight: 64
-    });
-    this.load.image("resource", "assets/sprites/crystal_persian.png");
+    this.load.tilemapTiledJSON("map", "assets/maps/iran_isometric_map.json");
     this.load.audio("theme", ["assets/audio/persian_theme.mp3"]);
   }
 
@@ -50,35 +43,8 @@ class MainGameScene extends Phaser.Scene {
 
     const map = this.make.tilemap({ key: "map" });
     const tileset = map.addTilesetImage("iranian_art_tileset", "tiles");
-    const baseLayer = map.createLayer(0, tileset, 0, 0);
-
-    this.player = this.physics.add.sprite(100, 100, "agent");
-    this.player.setCollideWorldBounds(true);
-
-    this.cursors = this.input.keyboard.createCursorKeys();
-
-    this.resource = this.physics.add.sprite(320, 250, "resource");
-    this.physics.add.overlap(this.player, this.resource, () => {
-      this.resource.destroy();
-      alert("✨ Rare resource discovered: Gulf Crystal! ✨");
-    });
-  }
-
-  update() {
-    this.player.setVelocity(0);
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-150);
-    } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(150);
-    }
-    if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-150);
-    } else if (this.cursors.down.isDown) {
-      this.player.setVelocityY(150);
-    }
+    map.createLayer(0, tileset, 0, 0);
   }
 }
 
-window.onload = function () {
-  new Phaser.Game(config);
-};
+export default new Phaser.Game(config);
