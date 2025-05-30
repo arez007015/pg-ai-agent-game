@@ -25,6 +25,11 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("tiles", "assets/tilesets/iranian_art_tileset.png");
     this.load.tilemapTiledJSON("map", "assets/maps/iran_isometric_map.json");
     this.load.audio("theme", ["assets/audio/persian_theme.mp3"]);
+    this.load.spritesheet("agent", "assets/sprites/pg_agent_goldturq.png", {
+  frameWidth: 64,
+  frameHeight: 64
+});
+
   }
 
   create() {
